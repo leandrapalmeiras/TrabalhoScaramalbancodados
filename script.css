@@ -1,0 +1,61 @@
+ let usuarios = [];
+ let indiceEdicao = null;
+
+  function inserir() {
+      const nome = document.getElementById("nome").value;
+      const email = document.getElementById("email").value;
+
+      if (nome === "" || email === "") {
+        alert("Preencha todos os campos!");
+        return;
+      }
+
+       mostrar(); // Atualiza a lista (SELECT)
+      limparCampos();
+    }
+
+      function mostrar() {
+      const lista = document.getElementById("lista");
+      lista.innerHTML = "";
+
+      usuarios.forEach((user, index) => {
+        const item = document.createElement("li");
+        item.textContent = user.nome + " - " + user.email;
+        item.innerHTML += `
+          <button onclick="editar(${index})">Editar</button>
+          <button onclick="deletar(${index})">DELETE</button>`;
+        lista.appendChild(item);
+      });
+    }
+
+      function atualizar() {
+      if (indiceEdicao === null) {
+        alert("Selecione um usuário para editar!");
+        return;
+      }
+
+      const nome = document.getElementById("nome").value;
+      const email = document.getElementById("email").value;
+
+        {
+      indiceEdicao = null;
+      mostrar(); // Atualiza a lista
+      limparCampos();
+    }
+
+       function deletar(index) {
+      // Aqui seria o comando DELETE FROM no banco
+      usuarios.splice(index, 1);
+      mostrar(); // Atualiza a lista
+    }
+
+        function limparCampos() {
+      document.getElementById("nome").value = "";
+      document.getElementById("email").value = "";
+    }
+
+      Mostra a lista inicial (vazia)
+    mostrar();
+  </script>
+</body>
+</html>
