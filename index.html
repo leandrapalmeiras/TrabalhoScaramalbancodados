@@ -19,21 +19,11 @@
 
   <h3>Usuários cadastrados (SELECT)</h3>
   <ul id="lista"></ul>
-<script src="script.js"></script>
-</body>
-</html>
 
- let usuarios = [];
+  <script>
+    // Vetor que simula um banco de dados
+    let usuarios = [];
     let indiceEdicao = null;
-
-      function inserir() {
-      const nome = document.getElementById("nome").value;
-      const email = document.getElementById("email").value;
-
-      if (nome === "" || email === "") {
-        alert("Preencha todos os campos!");
-        return;
-      }
 
     function inserir() {
       const nome = document.getElementById("nome").value;
@@ -44,7 +34,13 @@
         return;
       }
 
-         function mostrar() {
+      usuarios.push({ nome, email });
+
+      mostrar(); 
+      limparCampos();
+    }
+
+    function mostrar() {
       const lista = document.getElementById("lista");
       lista.innerHTML = "";
 
@@ -58,7 +54,7 @@
       });
     }
 
-        function atualizar() {
+    function atualizar() {
       if (indiceEdicao === null) {
         alert("Selecione um usuário para editar!");
         return;
@@ -67,31 +63,31 @@
       const nome = document.getElementById("nome").value;
       const email = document.getElementById("email").value;
 
+      usuarios[indiceEdicao] = { nome, email };
+
       indiceEdicao = null;
-      mostrar(); // Atualiza a lista
+      mostrar();
       limparCampos();
     }
 
-     Quando clicar em "Editar"
     function editar(index) {
       indiceEdicao = index;
       document.getElementById("nome").value = usuarios[index].nome;
       document.getElementById("email").value = usuarios[index].email;
     }
 
-        function deletar(index) {
-      // Aqui seria o comando DELETE FROM no banco
+    function deletar(index) {
+
       usuarios.splice(index, 1);
       mostrar(); // Atualiza a lista
     }
 
-     Limpar campos
+    
     function limparCampos() {
       document.getElementById("nome").value = "";
       document.getElementById("email").value = "";
     }
 
-    // Mostra a lista inicial (vazia)
     mostrar();
   </script>
 </body>
