@@ -1,94 +1,94 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html> <!-- Define o tipo do documento como HTML5 -->
+<html lang="pt-BR"> <!-- Início do HTML e define o idioma como português do Brasil -->
 <head>
-  <meta charset="UTF-8">
-  <title>CRUD Simples - HTML + JS</title>
+  <meta charset="UTF-8"> <!-- Define a codificação de caracteres -->
+  <title>CRUD Simples - HTML + JS</title> <!-- Título que aparece na aba do navegador -->
 </head>
 <body>
-  <h2>Cadastro de Usuários</h2>
+  <h2>Cadastro de Usuários</h2> <!-- Título principal da página -->
 
-  <label>Nome:</label>
-  <input type="text" id="nome"><br><br>
+  <label>Nome:</label> <!-- Rótulo do campo Nome -->
+  <input type="text" id="nome"><br><br> <!-- Campo de texto para digitar o nome -->
 
-  <label>Email:</label>
-  <input type="text" id="email"><br><br>
+  <label>Email:</label> <!-- Rótulo do campo Email -->
+  <input type="text" id="email"><br><br> <!-- Campo de texto para digitar o email -->
 
   <!-- Botões -->
-  <button onclick="inserir()">INSERT (Adicionar)</button>
-  <button onclick="atualizar()">UPDATE (Alterar)</button>
+  <button onclick="inserir()">INSERT (Adicionar)</button> <!-- Botão que chama a função inserir() -->
+  <button onclick="atualizar()">UPDATE (Alterar)</button> <!-- Botão que chama a função atualizar() -->
 
-  <h3>Usuários cadastrados (SELECT)</h3>
-  <ul id="lista"></ul>
+  <h3>Usuários cadastrados (SELECT)</h3> <!-- Subtítulo da lista -->
+  <ul id="lista"></ul> <!-- Lista onde os usuários serão exibidos -->
 
   <script>
     // Vetor que simula um banco de dados
-    let usuarios = [];
-    let indiceEdicao = null;
+    let usuarios = []; // Array que armazena os usuários
+    let indiceEdicao = null; // Guarda o índice do usuário que está sendo editado
 
-    function inserir() {
-      const nome = document.getElementById("nome").value;
-      const email = document.getElementById("email").value;
+    function inserir() { // Função para adicionar um novo usuário
+      const nome = document.getElementById("nome").value; // Pega o valor digitado no campo nome
+      const email = document.getElementById("email").value; // Pega o valor digitado no campo email
 
-      if (nome === "" || email === "") {
-        alert("Preencha todos os campos!");
-        return;
+      if (nome === "" || email === "") { // Verifica se algum campo está vazio
+        alert("Preencha todos os campos!"); // Mostra alerta se estiver vazio
+        return; // Interrompe a execução da função
       }
 
-      usuarios.push({ nome, email });
+      usuarios.push({ nome, email }); // Adiciona um novo objeto ao array usuarios
 
-      mostrar(); 
-      limparCampos();
+      mostrar();  // Atualiza a lista na tela
+      limparCampos(); // Limpa os campos após inserir
     }
 
-    function mostrar() {
-      const lista = document.getElementById("lista");
-      lista.innerHTML = "";
+    function mostrar() { // Função que exibe os usuários na tela
+      const lista = document.getElementById("lista"); // Pega o elemento da lista
+      lista.innerHTML = ""; // Limpa a lista antes de redesenhar
 
-      usuarios.forEach((user, index) => {
-        const item = document.createElement("li");
-        item.textContent = user.nome + " - " + user.email;
+      usuarios.forEach((user, index) => { // Percorre cada usuário do array
+        const item = document.createElement("li"); // Cria um elemento <li>
+        item.textContent = user.nome + " - " + user.email; // Define o texto do item
         item.innerHTML += `
-          <button onclick="editar(${index})">Editar</button>
-          <button onclick="deletar(${index})">DELETE</button>`;
-        lista.appendChild(item);
+          <button onclick="editar(${index})">Editar</button> <!-- Botão para editar -->
+          <button onclick="deletar(${index})">DELETE</button>`; // Botão para deletar
+        lista.appendChild(item); // Adiciona o item na lista
       });
     }
 
-    function atualizar() {
-      if (indiceEdicao === null) {
-        alert("Selecione um usuário para editar!");
-        return;
+    function atualizar() { // Função para atualizar um usuário existente
+      if (indiceEdicao === null) { // Verifica se algum usuário foi selecionado
+        alert("Selecione um usuário para editar!"); // Mostra alerta se não foi selecionado
+        return; // Interrompe a função
       }
 
-      const nome = document.getElementById("nome").value;
-      const email = document.getElementById("email").value;
+      const nome = document.getElementById("nome").value; // Pega o novo nome
+      const email = document.getElementById("email").value; // Pega o novo email
 
-      usuarios[indiceEdicao] = { nome, email };
+      usuarios[indiceEdicao] = { nome, email }; // Atualiza o usuário no array
 
-      indiceEdicao = null;
-      mostrar();
-      limparCampos();
+      indiceEdicao = null; // Reseta o índice de edição
+      mostrar(); // Atualiza a lista na tela
+      limparCampos(); // Limpa os campos
     }
 
-    function editar(index) {
-      indiceEdicao = index;
-      document.getElementById("nome").value = usuarios[index].nome;
-      document.getElementById("email").value = usuarios[index].email;
+    function editar(index) { // Função chamada ao clicar em "Editar"
+      indiceEdicao = index; // Guarda o índice do usuário selecionado
+      document.getElementById("nome").value = usuarios[index].nome; // Coloca o nome no campo
+      document.getElementById("email").value = usuarios[index].email; // Coloca o email no campo
     }
 
-    function deletar(index) {
+    function deletar(index) { // Função chamada ao clicar em "DELETE"
 
-      usuarios.splice(index, 1);
+      usuarios.splice(index, 1); // Remove 1 elemento do array na posição index
       mostrar(); // Atualiza a lista
     }
 
     
-    function limparCampos() {
-      document.getElementById("nome").value = "";
-      document.getElementById("email").value = "";
+    function limparCampos() { // Função para limpar os campos do formulário
+      document.getElementById("nome").value = ""; // Limpa o campo nome
+      document.getElementById("email").value = ""; // Limpa o campo email
     }
 
-    mostrar();
+    mostrar(); // Chama a função mostrar ao carregar a página
   </script>
 </body>
 </html>
